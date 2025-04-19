@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
+</head>
+<body>
+    <div class="signin-body">
+        <div class="des">
+            <h1 class="title">bugtracker</h1>
+            <p class="tagline">Track, fix and deliver seamless bug management for quality software</p>
+        </div>
+        <div class="signin-box">
+            <form id="login-box">
+                <h1 align="center">Sign in</h1>
+                <input class="text" type="text" placeholder="email or username" id="username" required>
+                <i class="bi bi-person-fill user"></i> 
+                <input class="text" type="password" placeholder="password" id="password" required>
+                <i class="bi bi-lock-fill lock"></i>
+                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Role : </label>
+                <select class="role" id="role">
+                    <option value="role">role</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="MANAGER">MANAGER</option>
+                    <option value="DEVELOPER">DEVELOPER</option>
+                    <option value="TESTER">TESTER</option>
+                </select>
+                <p>doesn't have an account<a id="signup" style="color:blue; cursor: pointer;"> signup</a></p>
+                <div class="btn"> <input type="submit" value="Sign In"></div>
+            </form>
+    
+            <form id="register-box">
+                <h1 align="center">Sign up</h1>
+                <input class="text" type="text" placeholder="email or username" id="username1" required>
+                <i class="bi bi-person-fill user1"></i> 
+                <input class="text" type="password" placeholder="new password" id="password1" required>
+                <i class="bi bi-lock-fill lock1"></i>
+                <input class="text" type="password" placeholder="re-type password" id="password2" required>
+                <i class="bi bi-lock-fill lock2"></i>
+                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Role : </label>
+                <select class="role" id="role1">
+                    <option value="role">role</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="MANAGER">MANAGER</option>
+                    <option value="DEVELOPER">DEVELOPER</option>
+                    <option value="TESTER">TESTER</option>
+                </select>
+                <p>alresdy have an account<a id="signin" style="color:blue; cursor: pointer;"> signin</a></p>
+                <div class="btn"> <input type="submit" value="Sign Up"></div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="./login.js"></script>
+</body>
+</html>

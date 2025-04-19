@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="fixed">
+        <ul class="top-line">
+            <li id="add-user-id" class="add-user"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;add user</li>
+            <li id="all-user-id" class="all-user"><i class="bi bi-person-badge"></i>&nbsp;&nbsp;all users</li>
+            <li>
+                <form id="get-user-form">
+                    <input type="search" placeholder="username or email" required>
+                    <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+            </li>
+        </ul>
+        <table class="user-table">
+                <tr><td width="60">S.no</td><td>username</td><td width="100">role</td><td width="300">added at</td><td width="100">update</td><td width="100">trash</td></tr>
+        </table>
+    </div>
+    <div class="scroll">
+        <table id="user-table-id" class="user-table">
+            <tr><td width="60">S.no</td><td>username</td><td width="100">role</td><td width="300">added at</td><td width="100">update</td><td width="100">trash</td></tr>
+        </table>
+    </div>
+    <div id="add-user-box-id" class="add-user-box">
+        <p>Add User</p>
+        <form id="add-user-form-id" class="add-user-form">
+            <input type="text" placeholder="username or email" id="username"><br>
+            <input type="password" placeholder="password" id="password"><br>
+            <select id="role" name="role">
+                <option value="ADMIN">ADMIN</option>
+                <option value="MANAGER">MANAGER</option>
+                <option value="DEVELOPER">DEVELOPER</option>
+                <option value="TESTER">TESTER</option>
+            </select>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+    <div id="update-user-box-id" class="update-user-box">
+        <p>Update User</p>
+        <form id="update-user-form-id" class="update-user-form">
+            <input type="text" placeholder="username or email" id="username1"><br>
+            <input type="password" placeholder="password" id="password1"><br>
+            <select id="role1" name="role">
+                <option value="">role</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="MANAGER">MANAGER</option>
+                <option value="DEVELOPER">DEVELOPER</option>
+                <option value="TESTER">TESTER</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+    <div id="delete-user-box-id" class="delete-user-box">
+        <p>Do you want to delete user ?</p>
+        <button class="cancel">cancel</button><button id="delete-user">delete</button>
+    </div>
+
+
+    <div id="black" class="black"></div>
+    <script src="./js/user.js"></script>
+</body>
+</html>

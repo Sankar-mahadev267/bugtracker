@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="fixed">
+        <ul class="top-line">
+            <li id="all-bug-id" class="all-user"><i class="bi bi-card-checklist"></i>&nbsp;&nbsp;all bugs</li>
+            <li>
+                <form id="get-bug-form">
+                    <input type="search" placeholder="bug title" required>
+                    <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+            </li>
+        </ul>
+        <table class="user-table">
+            <tr><td width="60">S.no</td><td>Bug title</td><td width="200">Bug Status</td><td width="200">createdAt</td><td width="300">Assigned To</td></tr>
+        </table>
+    </div>
+    <div class="scroll">
+        <table id="bug-table-id" class="user-table">
+            <tr><td width="60">S.no</td><td>Bug title</td><td width="300">IN_PROGRESS</td><td>createdAt</td></tr>
+        </table>
+    </div>
+    <div id="bug-desc-id" class="project-desc">
+        <h3>bug title <span id="bug-status"> bug status</span></h3>
+        <p>bug description..........</p>
+        <p>Reporter    : sai krishna</p>
+        <p>Project     : pavar unvis</p>
+    </div>
+
+    <div id="black" class="black"></div>
+
+    <script src="./js/bug.js"></script>
+</body>
+</html>
