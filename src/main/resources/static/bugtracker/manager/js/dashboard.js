@@ -106,7 +106,7 @@ profile.addEventListener('click' , () => {
 
 
 //api base url http://localhost:8008
-const API_URL="https://bugtracker.up.railway.app/bugtrackerapi";
+const API_URL="http://localhost:8008/bugtrackerapi";
 const token=localStorage.getItem("jwtToken");
 
 const username=document.getElementById("username");

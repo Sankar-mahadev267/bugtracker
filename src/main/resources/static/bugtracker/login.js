@@ -1,20 +1,20 @@
 // api base url http://localhost:8008
-const API_URL='https://bugtracker.up.railway.app/bugtrackerapi';
+const API_URL='http://localhost:8008/bugtrackerapi';
 
 const loginBox=document.getElementById("login-box");
-const registerBox=document.getElementById("register-box");
-const signin=document.getElementById("signin");
-const signup=document.getElementById("signup");
+// const registerBox=document.getElementById("register-box");
+// const signin=document.getElementById("signin");
+// const signup=document.getElementById("signup");
 
-signup.addEventListener("click" , () => {
-    registerBox.style.display='block';
-    loginBox.style.display='none';
-});
+// signup.addEventListener("click" , () => {
+//     registerBox.style.display='block';
+//     loginBox.style.display='none';
+// });
 
-signin.addEventListener("click" , () => { 
-    registerBox.style.display='none';
-    loginBox.style.display='block';
-});
+// signin.addEventListener("click" , () => { 
+//     registerBox.style.display='none';
+//     loginBox.style.display='block';
+// });
 
 
 loginBox.addEventListener("submit" , async (event) => {
