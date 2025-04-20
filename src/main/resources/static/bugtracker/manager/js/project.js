@@ -1,5 +1,5 @@
 //api base url http://localhost:8008
-const API_URL='/bugtrackerapi/manager';
+const API_URL='https://bugtracker.up.railway.app/bugtrackerapi/manager';
 const token=localStorage.getItem("jwtToken");
 //projects
 
