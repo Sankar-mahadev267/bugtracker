@@ -19,38 +19,48 @@ const loginBox=document.getElementById("login-box");
 
 loginBox.addEventListener("submit" , async (event) => {
     event.preventDefault();
-    const role=document.getElementById("role").value;
 
-    if(role!="role"){
-        const loginInfo= {
-            username:document.getElementById('username').value,
-            password:document.getElementById("password").value,
-            roles:[role]
-        };
-    
-        try {
-            const response= await fetch(`${API_URL}/login` , {
-                method: "POST",
-                headers: {
-                    "Content-Type" : "application/json"
-                },
-                body: JSON.stringify(loginInfo)
-            });
-    
-            if(response.ok){
-                const token= await response.text();
-                localStorage.setItem("jwtToken", token);
-                const role=document.getElementById("role").value.toLowerCase();
-                window.location.href=`http://localhost:8008/bugtracker/${role}/dashboard.html`;
-            } else{
-                alert('Enter correct details');
+    const loginInfo= {
+        username:document.getElementById('username').value,
+        password:document.getElementById("password").value,
+    };
+
+    try {
+        const response= await fetch(`${API_URL}/login` , {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(loginInfo)
+        });
+
+        if(response.ok){
+            const token= await response.text();
+            localStorage.setItem("jwtToken", token);
+            try {
+                const userResponse = await fetch(`${API_URL}/profile` , {
+                    method : "GET",
+                    headers : {
+                        "ContentType" : "application/json",
+                        "Authorization" : "Bearer "+localStorage.getItem("jwtToken")
+                    }
+                });
+
+                if(userResponse.ok){
+                    const user =await userResponse.json();
+                    const role=`${user.roles}`.toLowerCase();
+                    window.location.href=`http://localhost:8008/bugtracker/${role}/dashboard.html`;
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.error("error..."+error);
+        } else{
+            alert('Enter correct details');
         }
-    } else{
-        alert('select your role');
+    } catch (error) {
+        console.error("error..."+error);
     }
+
 });
 
 
