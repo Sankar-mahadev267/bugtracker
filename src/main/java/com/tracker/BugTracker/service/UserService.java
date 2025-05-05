@@ -13,5 +13,6 @@ public interface UserService {
 	public User getByUsername(String username);
 	public User updateUser(long userId,Map<String, Object> user);
 	public boolean deleteUser(long userId);
+	public long userCount();
 	
 }

@@ -1,12 +1,12 @@
 package com.tracker.BugTracker.service;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -50,6 +50,56 @@ public class BugServiceImpl implements BugService {
 		User developer=userRepository.getUserByUsername(username);
 		return bugRepository.findAll().stream().filter(bug -> bug.getAssignedTo() == developer).collect(Collectors.toList());
 	}
+	
+	@Override
+	public Map<String, Long> bugCount() {
+		List<Bug> bugs=bugRepository.findAll();
+		long totalBugs=bugs.stream().count();
+		long assignedBugs=bugs.stream().filter(bug -> bug.getAssignedTo()!=null).count();
+		long notAssignedBugs=bugs.stream().filter(bug -> bug.getAssignedTo()==null).count();
+		Map<String, Long> bugCounts= new HashMap<>();
+		bugCounts.put("totalBugs", totalBugs);
+		bugCounts.put("assignedBugs", assignedBugs);
+		bugCounts.put("notAssignedBugs", notAssignedBugs);
+		return bugCounts;
+	}
+
+	@Override
+	public Map<String, Long> bugReportedCount() {
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		User tester=userRepository.getUserByUsername(username);
+		List<Bug> bugs=bugRepository.findAll();
+		long reportedBugs= bugs.stream().filter(bug -> bug.getReportedBy()==tester).count();
+		long openBugs= bugs.stream().filter(bug -> bug.getReportedBy()==tester).filter(bug -> bug.getStatus()== BugStatus.OPEN).count();
+		long closedBugs= bugs.stream().filter(bug -> bug.getReportedBy()==tester).filter(bug -> bug.getStatus()== BugStatus.CLOSED).count();
+		long bugsInprogress= bugs.stream().filter(bug -> bug.getReportedBy()==tester).filter(bug -> bug.getStatus()== BugStatus.IN_PROGRESS).count();
+		long resolvedBugs= bugs.stream().filter(bug -> bug.getReportedBy()==tester).filter(bug -> bug.getStatus()== BugStatus.RESOLVED).count();
+		Map<String, Long> bugCounts= new HashMap<>();
+		bugCounts.put("reportedBugs", reportedBugs);
+		bugCounts.put("openBugs", openBugs);
+		bugCounts.put("closedBugs", closedBugs);
+		bugCounts.put("bugsInprogress", bugsInprogress);
+		bugCounts.put("resolvedBugs", resolvedBugs);
+		return bugCounts;
+	}
+	
+	@Override
+	public Map<String, Long> bugAssignedCount() {
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		User developer=userRepository.getUserByUsername(username);
+		List<Bug> bugs=bugRepository.findAll();
+		long assignedBugs= bugs.stream().filter(bug -> bug.getAssignedTo()==developer).count();
+		long openBugs= bugs.stream().filter(bug -> bug.getAssignedTo()==developer).filter(bug -> bug.getStatus()== BugStatus.OPEN).count();
+		long bugsInprogress= bugs.stream().filter(bug -> bug.getAssignedTo()==developer).filter(bug -> bug.getStatus()== BugStatus.IN_PROGRESS).count();
+		long resolvedBugs= bugs.stream().filter(bug -> bug.getAssignedTo()==developer).filter(bug -> bug.getStatus()== BugStatus.RESOLVED).count();
+		Map<String, Long> bugCounts= new HashMap<>();
+		bugCounts.put("assignedBugs", assignedBugs);
+		bugCounts.put("openBugs", openBugs);
+		bugCounts.put("bugsInprogress", bugsInprogress);
+		bugCounts.put("resolvedBugs", resolvedBugs);
+		return bugCounts;
+	}
+
 	@Override
 	public Bug getBug(long bugId) {
 		return bugRepository.findById(bugId).orElseThrow(() -> new ResourceNotFoundException("bug not found"));

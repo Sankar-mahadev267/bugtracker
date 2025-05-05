@@ -13,5 +13,6 @@ public interface ProjectService {
 	public Project addProject(Project project);
 	public Project updateProject(long projectId,Map<String, Object> project);
 	public boolean deleteProject(long projectId);
+	public long projectCount();
 	
 }

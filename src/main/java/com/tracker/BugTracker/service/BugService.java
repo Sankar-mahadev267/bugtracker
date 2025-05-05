@@ -17,5 +17,8 @@ public interface BugService {
 	public Bug updateReportedBug(long bugId,Map<String, Object> bug);
 	public Bug assignBug(long bugId, long userId);
 	public boolean deleteBug(long bugId);
+	public Map<String, Long> bugCount();
+	public Map<String, Long> bugReportedCount();
+	public Map<String, Long> bugAssignedCount();
 	
 }

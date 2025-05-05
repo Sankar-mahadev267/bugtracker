@@ -94,5 +94,12 @@ public class TesterController {
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("bug not found");
 	}
+	
+	//counts 
+	
+	@GetMapping("/bugs/count")
+	public ResponseEntity<?> bugReportedCount(){
+		return ResponseEntity.status(HttpStatus.OK).body(bugServiceImpl.bugReportedCount());
+	}
 
 }

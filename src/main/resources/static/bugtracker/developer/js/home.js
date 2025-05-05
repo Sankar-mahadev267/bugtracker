@@ -27,3 +27,26 @@ async function getUserProfile() {
 }
 
 
+counts();
+async function counts() {
+    try{
+        const response=await fetch(`${API_URL}/developer/bugs/count` , {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer "+token,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if(response.ok){
+            const count= await response.json();
+            document.getElementById("assigned-bugs").innerHTML=`${count.assignedBugs}`;
+            document.getElementById("open-bugs").innerHTML=`${count.openBugs}`;
+            document.getElementById("bugs-inprogress").innerHTML=`${count.bugsInprogress}`;
+            document.getElementById("resolved-bugs").innerHTML=`${count.resolvedBugs}`;
+        }
+        
+    } catch(error){
+        console.error('Error..'+ error);
+    }
+}

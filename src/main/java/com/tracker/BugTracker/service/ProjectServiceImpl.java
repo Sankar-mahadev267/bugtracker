@@ -33,6 +33,11 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
+	public long projectCount() {
+		return projectRepository.findAll().stream().count();
+	}
+
+	@Override
 	public Project getProject(long projectId) {
 		return projectRepository.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("project not found"));
 	}

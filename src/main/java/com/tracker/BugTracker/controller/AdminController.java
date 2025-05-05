@@ -110,4 +110,21 @@ public class AdminController {
 		return ResponseEntity.status(HttpStatus.OK).body(bug);
 	}
 	
+	//counts for dashboard
+	
+	@GetMapping("/users/count")
+	public ResponseEntity<?> userCount(){
+		return ResponseEntity.status(HttpStatus.OK).body(userServiceImpl.userCount());
+	}
+	
+	@GetMapping("/projects/count")
+	public ResponseEntity<?> projectCount(){
+		return ResponseEntity.status(HttpStatus.OK).body(projectServiceImpl.projectCount());
+	}
+	
+	@GetMapping("/bugs/count")
+	public ResponseEntity<?> bugCount(){
+		return ResponseEntity.status(HttpStatus.OK).body(bugServiceImpl.bugCount());
+	}
+	
 }

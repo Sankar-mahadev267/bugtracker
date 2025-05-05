@@ -27,3 +27,36 @@ async function getUserProfile() {
 }
 
 
+counts();
+async function counts() {
+    try{
+        const response1=await fetch(`${API_URL}/manager/projects/count` , {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer "+token,
+                "Content-Type": "application/json"
+            }
+        });
+        const response2=await fetch(`${API_URL}/manager/bugs/count` , {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer "+token,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if(response1.ok){
+            const projectCount= await response1.json();
+            document.getElementById("total-projects").innerHTML=`${projectCount}`;
+        }
+        if(response2.ok){
+            const count= await response2.json();
+            document.getElementById("total-bugs").innerHTML=`${count.totalBugs}`;
+            document.getElementById("assigned-bugs").innerHTML=`${count.assignedBugs}`;
+            document.getElementById("not-assigned-bugs").innerHTML=`${count.notAssignedBugs}`;
+        }
+        
+    } catch(error){
+        console.error('Error..'+ error);
+    }
+}

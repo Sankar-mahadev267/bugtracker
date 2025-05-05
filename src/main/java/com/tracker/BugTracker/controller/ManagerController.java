@@ -103,4 +103,18 @@ public class ManagerController {
 		Bug assignedBug= bugServiceImpl.assignBug(bugId, userId);
 		return ResponseEntity.status(HttpStatus.OK).body(assignedBug);
 	}
+	
+	//counts for dashboad
+	
+	@GetMapping("/projects/count")
+	public ResponseEntity<?> projectCount(){
+		return ResponseEntity.status(HttpStatus.OK).body(projectServiceImpl.projectCount());
+	}
+	
+	@GetMapping("/bugs/count")
+	public ResponseEntity<?> bugCount(){
+		return ResponseEntity.status(HttpStatus.OK).body(bugServiceImpl.bugCount());
+	}
+
+	
 }

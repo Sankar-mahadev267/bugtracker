@@ -57,5 +57,12 @@ public class DeveloperController {
 		Comment addedComment=commentServiceImpl.addComment(bugId,comment);
 		return ResponseEntity.status(HttpStatus.CREATED).body(addedComment);
 	}
+	
+	//counts 
+	
+	@GetMapping("/bugs/count")
+	public ResponseEntity<?> bugReportedCount(){
+		return ResponseEntity.status(HttpStatus.OK).body(bugServiceImpl.bugAssignedCount());
+	}
 
 }

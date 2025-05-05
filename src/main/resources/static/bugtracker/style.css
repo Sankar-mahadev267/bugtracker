@@ -5,10 +5,7 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.logo{
-    height: 36px;
-    vertical-align:top;
-}
+
 .signin-body{
     width: 100%;
     height: 100vh;
@@ -22,8 +19,13 @@
 }
 .des .title{
     color: #FF9149;
+    text-transform: uppercase;
     font-size: 66px;
+    font-weight: 600;
     margin-bottom: 10px;
+}
+.des .title img{
+    height: 48px;
 }
 .tagline{
     color: #606770;
@@ -149,15 +151,19 @@ p{
     right: 0;
     top: 40px;
     width: 95%;
-    height: 94vh;
+    height: 93.7vh;
     border-top-left-radius: 10px;
     background-color: white;
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
-.title{
+.background .title{
+    font-weight: 400;
     padding: 0 10px;
-    font-weight:700;
     font-size: 25px;
+    text-transform: uppercase;
+}
+.background .title img{
+    height: 18px;
 }
 .options{
     height: 83vh;

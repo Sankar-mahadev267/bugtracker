@@ -18,7 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tracker.BugTracker.entity.User;
-import com.tracker.BugTracker.exception.ResourceNotFoundException;
 import com.tracker.BugTracker.repository.UserRepository;
 
 @Service
