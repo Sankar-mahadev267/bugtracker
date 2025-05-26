@@ -29,12 +29,12 @@ try{
         userList.forEach(user => {
             const row =document.createElement("tr");
             row.innerHTML=`
-                <td width="60">${a}</td>
+                <td width="60"  class="align-center">${a}</td>
                 <td>${user.username}</td>
                 <td width="100">${user.roles[0]}</td>
-                <td width="300">${user.createdAt}</td>
-                <td width="100"><i class="bi bi-pencil-square" onclick="updateUserBoxfun(${user.id})"></i></td>
-                <td width="100"><i class="bi bi-trash" onclick="deleteUserBoxfun(${user.id})"></i></td>
+                <td width="300" class="align-center">${user.createdAt.substr(0,10)}&nbsp;&nbsp;${user.createdAt.substr(11,8)}</td>
+                <td width="100" class="align-center"><i class="bi bi-pencil-square" onclick="updateUserBoxfun(${user.id})"></i></td>
+                <td width="100" class="align-center"><i class="bi bi-trash" onclick="deleteUserBoxfun(${user.id})"></i></td>
             `;
             userTable.appendChild(row);
             a++;
@@ -60,18 +60,18 @@ document.getElementById("get-user-form").onsubmit=async function(event) {
         });
 
         if(response.ok){
-            document.getElementById("get-user-form").reset;
+            document.getElementById("get-user-form").reset();
             const user= await response.json();
             const userTable=document.getElementById("user-table-id");
             userTable.replaceChildren();
             const row =document.createElement("tr");
             row.innerHTML=`
-                <td width="60">${user.id}</td>
+                <td width="60" class="align-center">${user.id}</td>
                 <td>${user.username}</td>
                 <td width="100">${user.roles[0]}</td>
-			    <td width="300">${user.createdAt}</td>
-                <td width="100"><i class="bi bi-pencil-square" onclick="updateUserBoxfun(${user.id})"></i></td>
-                <td width="100"><i class="bi bi-trash" onclick="deleteUserBoxfun(${user.id})"></i></td>
+			    <td width="300" class="align-center">${user.createdAt.substr(0,10)}&nbsp;&nbsp;${user.createdAt.substr(11,8)}</td>
+                <td width="100" class="align-center"><i class="bi bi-pencil-square" onclick="updateUserBoxfun(${user.id})"></i></td>
+                <td width="100" class="align-center"><i class="bi bi-trash" onclick="deleteUserBoxfun(${user.id})"></i></td>
             `;
             userTable.appendChild(row);
 
@@ -133,12 +133,12 @@ document.getElementById("add-user-form-id").addEventListener("submit" , async (e
             userTable.replaceChildren();
             const row =document.createElement("tr");
             row.innerHTML=`
-                <td width="60">${user.id}</td>
+                <td width="60" class="align-center">${user.id}</td>
                 <td>${user.username}</td>
                 <td width="100">${user.roles[0]}</td>
-			    <td width="300">${user.createdAt}</td>
-                <td width="100"><i class="bi bi-pencil-square" onclick="updateUserBoxfun(${user.id})"></i></td>
-                <td width="100"><i class="bi bi-trash" onclick="deleteUserBoxfun(${user.id})"></i></td>
+			    <td width="300" class="align-center">${user.createdAt.substr(0,10)}&nbsp;&nbsp;${user.createdAt.substr(11,8)}</td>
+                <td width="100" class="align-center"><i class="bi bi-pencil-square" onclick="updateUserBoxfun(${user.id})"></i></td>
+                <td width="100" class="align-center"><i class="bi bi-trash" onclick="deleteUserBoxfun(${user.id})"></i></td>
             `;
             userTable.appendChild(row);
             
@@ -207,12 +207,12 @@ async function updateUser(id) {
             userTable.replaceChildren();
             const row =document.createElement("tr");
             row.innerHTML=`
-                <td width="60">${user.id}</td>
+                <td width="60" class="align-center">${user.id}</td>
                 <td>${user.username}</td>
                 <td width="100">${user.roles[0]}</td>
-			    <td width="300">${user.createdAt}</td>
-                <td width="100"><i class="bi bi-pencil-square" onclick="updateUserBoxfun(${user.id})"></i></td>
-                <td width="100"><i class="bi bi-trash" onclick="deleteUserBoxfun(${user.id})"></i></td>
+			    <td width="300" class="align-center">${user.createdAt.substr(0,10)}&nbsp;&nbsp;${user.createdAt.substr(11,8)}</td>
+                <td width="100" class="align-center"><i class="bi bi-pencil-square" onclick="updateUserBoxfun(${user.id})"></i></td>
+                <td width="100" class="align-center"><i class="bi bi-trash" onclick="deleteUserBoxfun(${user.id})"></i></td>
             `;
             userTable.appendChild(row);
         }

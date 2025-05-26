@@ -35,13 +35,13 @@ async function getAllBugs() {
             row.ondblclick=function(){bugDescription(bugId);};
             var dev=bug.assignedTo.username;
             if(dev == null){
-                dev="Not assigneds";
+                dev="Not assigned";
             }
             row.innerHTML=`
-                <td width="60">${a}</td>
+                <td width="60" class="align-center">${a}</td>
                 <td>${bug.title}</td>
                 <td width="200"><span class="${bug.status}">${bug.status}</span></td>
-                <td width="200">${bug.createdAt}</td>
+                <td width="200" class="align-center">${bug.createdAt.substr(0,10)}&nbsp;&nbsp;${bug.createdAt.substr(11,8)}</td>
                 <td width="300">${dev}</td>
             `;
             bugTable.appendChild(row);
@@ -67,7 +67,7 @@ document.getElementById("get-bug-form").onsubmit=async function (event) {
         });
 
         if(response.ok){
-            document.getElementById("get-bug-form").reset;
+            document.getElementById("get-bug-form").reset();
             const bug= await response.json();
             const bugTable=document.getElementById("bug-table-id");
             bugTable.replaceChildren();
@@ -79,10 +79,10 @@ document.getElementById("get-bug-form").onsubmit=async function (event) {
                 dev="Not assigned";
             }
             row.innerHTML=`
-                <td width="60">${bug.id}</td>
-                <td>${bug.title}</td>
+                <td width="60"  class="align-center">${bug.id}</td>
+                <td class="left-align">${bug.title}</td>
                 <td width="200"><span class="${bug.status}">${bug.status}</span></td>
-                <td width="200">${bug.createdAt}</td>
+                <td width="200" class="align-center">${bug.createdAt.substr(0,10)}&nbsp;&nbsp;${bug.createdAt.substr(11,8)}</td>
                 <td width="300">${dev}</td>
             `;
             bugTable.appendChild(row);

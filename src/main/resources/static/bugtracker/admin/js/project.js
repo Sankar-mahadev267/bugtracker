@@ -35,10 +35,10 @@ async function getAllProjects() {
                 const projectId=`${project.id}`;
                 row.ondblclick=function(){projectDescription(projectId);};
                 row.innerHTML=`
-                    <td width="60">${a}</td>
+                    <td width="60" class="align-center">${a}</td>
                     <td>${project.projectTitle}</td>
                     <td width="300">${project.manager.username}</td>
-                    <td width="200">${project.createdAt}</td>
+                    <td width="200" class="align-center">${project.createdAt.substr(0,10)}&nbsp;&nbsp;${project.createdAt.substr(11,8)}</td>
                 `;
                 projectTable.appendChild(row);
                 a++;
@@ -63,7 +63,7 @@ document.getElementById("get-project-form").onsubmit=async function (event) {
         });
 
         if(response.ok){
-            document.getElementById("get-project-form").reset;
+            document.getElementById("get-project-form").reset();
             const project= await response.json();
             const projectTable=document.getElementById("project-table-id");
             projectTable.replaceChildren();
@@ -71,10 +71,10 @@ document.getElementById("get-project-form").onsubmit=async function (event) {
             const projectId=`${project.id}`;
             row.ondblclick=function(){projectDescription(projectId);};
             row.innerHTML=`
-                <td width="60">${project.id}</td>
+                <td width="60" class="align-center">${project.id}</td>
                 <td>${project.projectTitle}</td>
                 <td width="300">${project.manager.username}</td>
-			    <td width="200">${project.createdAt}</td>
+			    <td width="200" class="align-center">${project.createdAt.substr(0,10)}&nbsp;&nbsp;${project.createdAt.substr(11,8)}</td>
             `;
             projectTable.appendChild(row);
         } else{
@@ -105,8 +105,8 @@ async function projectDescription(id){
             projectDesc.replaceChildren();
             projectDesc.innerHTML=`
                 <h3>${project.projectTitle} </h3>
-                <p>Manager : ${project.manager.username}</p>
                 <p>${project.projectDescription}</p>
+                <p>Manager : ${project.manager.username}</p>
             `;  
         } else{
             alert('try again');

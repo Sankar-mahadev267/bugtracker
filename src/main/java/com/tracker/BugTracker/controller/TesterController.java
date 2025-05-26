@@ -75,10 +75,17 @@ public class TesterController {
 		return ResponseEntity.status(HttpStatus.OK).body(bug);
 	}
 	
+	//comments
 	@PostMapping("/bugs/{bugId}/comments")
 	public ResponseEntity<?> addComment(@PathVariable long bugId,@RequestBody Comment comment){
 		Comment addedComment=commentServiceImpl.addComment(bugId,comment);
 		return ResponseEntity.status(HttpStatus.OK).body(addedComment);
+	}
+	
+	@GetMapping("/bugs/{bugId}/comments")
+	public ResponseEntity<?> getComments(@PathVariable long bugId){
+		List<Comment> comments=bugServiceImpl.getBug(bugId).getComments();
+		return ResponseEntity.status(HttpStatus.OK).body(comments);
 	}
 	
 	@PutMapping("/bugs/{bugId}")

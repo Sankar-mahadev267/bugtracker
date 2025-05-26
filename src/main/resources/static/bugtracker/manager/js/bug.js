@@ -41,10 +41,10 @@ async function getAllBugs() {
                 const bugId=`${bug.id}`;
                 row.ondblclick=function(){bugDescription(bugId);};
                 row.innerHTML=`
-                    <td width="60">${a}</td>
+                    <td class="align-center" width="60">${a}</td>
                     <td>${bug.title}</td>
                     <td width="200"><span class="${bug.status}">${bug.status}</span></td>
-                    <td width="200">${bug.createdAt}</td>
+                    <td width="200">${bug.createdAt.substr(0,10)}&nbsp;&nbsp;${bug.createdAt.substr(11,8)}</td>
                     ${dev}
                 `;
                 bugTable.appendChild(row);
@@ -72,7 +72,7 @@ document.getElementById("get-bug-form").onsubmit=async function (event) {
         });
 
         if(response.ok){
-            document.getElementById("get-bug-form").reset;
+            document.getElementById("get-bug-form").reset();
             const bug= await response.json();
             const bugTable=document.getElementById("bug-table-id");
             bugTable.replaceChildren();
@@ -85,10 +85,10 @@ document.getElementById("get-bug-form").onsubmit=async function (event) {
             const bugId=`${bug.id}`;
             row.ondblclick=function(){bugDescription(bugId);};
             row.innerHTML=`
-                <td width="60">${bug.id}</td>
+                <td class="align-center" width="60">${bug.id}</td>
                 <td>${bug.title}</td>
                 <td width="200"><span class="${bug.status}">${bug.status}</span></td>
-                <td width="200">${bug.createdAt}</td>
+                <td width="200">${bug.createdAt.substr(0,10)}&nbsp;&nbsp;${bug.createdAt.substr(11,8)}</td>
                 ${dev}
             `;
             bugTable.appendChild(row);
@@ -170,7 +170,7 @@ async function assignBug(bugId,developer) {
             });
     
             if(bugResponse.ok){
-                document.getElementById("assign-bug-form").reset;
+                document.getElementById("assign-bug-form").reset();
                 assignBugBox.style.display='none';
                 black.style.display='none';
                 const bug= await bugResponse.json();
@@ -185,10 +185,10 @@ async function assignBug(bugId,developer) {
                 const bugId=`${bug.id}`;
                 row.ondblclick=function(){bugDescription(bugId);};
                 row.innerHTML=`
-                    <td width="60">${bug.id}</td>
+                    <td class="align-center" width="60">${bug.id}</td>
                     <td>${bug.title}</td>
                     <td width="200"><span class="${bug.status}">${bug.status}</span></td>
-                    <td width="200">${bug.createdAt}</td>
+                    <td width="200">${bug.createdAt.substr(0,10)}&nbsp;&nbsp;${bug.createdAt.substr(11,8)}</td>
                     ${dev}
                 `;
                 bugTable.appendChild(row);

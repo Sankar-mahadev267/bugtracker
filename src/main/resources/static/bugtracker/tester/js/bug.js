@@ -16,32 +16,38 @@ getAllBugs();
 allBug.addEventListener("click" , () => {getAllBugs()});
 
 async function getAllBugs() {
-    const response=await fetch(`${API_URL}/bugs` , {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer "+token,
-            "Content-Type": "application/json"
+    try {
+        const response=await fetch(`${API_URL}/bugs` , {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer "+token,
+                "Content-Type": "application/json"
+            }
+        });
+    
+        if(response.ok){
+            var a=1;
+            const bugList= await response.json();
+            const bugTable=document.getElementById("bug-table-id");
+            bugTable.replaceChildren();
+            bugList.forEach( bug => {
+                const row=document.createElement('tr');
+                const bugId=`${bug.id}`;
+                row.ondblclick=function(){bugDescription(bugId);};
+                row.innerHTML=`
+                    <td class="align-center" width="60">${a}</td>
+                    <td>${bug.title}</td>
+                    <td width="200"><span class="${bug.status}" onclick="bugStatusBoxfun(${bug.id})">${bug.status}</span></td>
+                    <td class="align-center" width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
+                    <td class="align-center" width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
+                `;
+                bugTable.appendChild(row);
+                a++;
+            });
         }
-    });
-
-    var a=1;
-    const bugList= await response.json();
-    const bugTable=document.getElementById("bug-table-id");
-    bugTable.replaceChildren();
-    bugList.forEach( bug => {
-        const row=document.createElement('tr');
-        const bugId=`${bug.id}`;
-        row.ondblclick=function(){bugDescription(bugId);};
-        row.innerHTML=`
-            <td width="60">${a}</td>
-            <td>${bug.title}</td>
-            <td width="200"><span class="${bug.status}" onclick="bugStatusBoxfun(${bug.id})">${bug.status}</span></td>
-            <td width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
-            <td width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
-        `;
-        bugTable.appendChild(row);
-        a++;
-    });
+    } catch (error) {
+        console.error("error "+error);
+    }
 }
 
 
@@ -59,7 +65,7 @@ document.getElementById("get-bug-form").onsubmit=async function (event) {
         });
 
         if(response.ok){
-            document.getElementById("get-bug-form").reset;
+            document.getElementById("get-bug-form").reset();
             const bug= await response.json();
             const bugTable=document.getElementById("bug-table-id");
             bugTable.replaceChildren();
@@ -67,11 +73,11 @@ document.getElementById("get-bug-form").onsubmit=async function (event) {
             const bugId=`${bug.id}`;
             row.ondblclick=function(){bugDescription(bugId);};
             row.innerHTML=`
-                <td width="60">${bug.id}</td>
+                <td class="align-center" width="60">${bug.id}</td>
                 <td>${bug.title}</td>
                 <td width="200"><span class="${bug.status}" onclick="bugStatusBoxfun(${bug.id})">${bug.status}</span></td>
-                <td width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
-                <td width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
+                <td class="align-center" width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
+                <td class="align-center" width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
             `;
             bugTable.appendChild(row);
         }
@@ -84,6 +90,7 @@ document.getElementById("get-bug-form").onsubmit=async function (event) {
     }
 }
 
+const bugDescMatter=document.getElementById("bug-desc-matter");
 
 // display bug description when click on bug
 async function bugDescription(id) {
@@ -99,15 +106,15 @@ async function bugDescription(id) {
             bugDesc.style.display='block';
             black.style.display='block';
             const bug= await response.json();
-            bugDesc.replaceChildren();
+            bugDescMatter.replaceChildren();
             var dev="Not assigned";
             if(bug.assignedTo != null){
                 dev=bug.assignedTo.username;
             }
-            bugDesc.innerHTML=`
+            bugDescMatter.innerHTML=`
                 <h3>${bug.title} <span id="${bug.status}"> ${bug.status}</span> &nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-chat-left-text" onclick="addCommentBox(${bug.id})"></i></h3>
                 <p>${bug.description}</p>
-                <p>created At  : ${bug.createdAt}</p>
+                <p>created At  : ${bug.createdAt.substr(0,10)}&nbsp;&nbsp;${bug.createdAt.substr(11,8)}</p>
                 <p>Project     : ${bug.project.projectTitle}</p>
                 <p>Developer   : ${dev}</p>
             `;
@@ -152,7 +159,7 @@ async function bugStatus(id,status) {
         });
 
         if(response.ok){
-            document.getElementById("bug-status-form").reset;
+            document.getElementById("bug-status-form").reset();
             bugStatusBox.style.display='none';
             black.style.display='none';
             const bug= await response.json();
@@ -162,11 +169,11 @@ async function bugStatus(id,status) {
             const bugId=`${bug.id}`;
             row.ondblclick=function(){bugDescription(bugId);};
             row.innerHTML=`
-                <td width="60">${bug.id}</td>
+                <td class="align-center" width="60">${bug.id}</td>
                 <td>${bug.title}</td>
                 <td width="200"><span class="${bug.status}" onclick="bugStatusBoxfun(${bug.id})">${bug.status}</span></td>
-                <td width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
-                <td width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
+                <td class="align-center" width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
+                <td class="align-center" width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
             `;
             bugTable.appendChild(row);
         }
@@ -243,11 +250,11 @@ document.getElementById("add-bug-form-id").addEventListener("submit" , async (ev
                 const bugId=`${bug.id}`;
                 row.ondblclick=function(){bugDescription(bugId);};
                 row.innerHTML=`
-                    <td width="60">${bug.id}</td>
+                    <td class="align-center" width="60">${bug.id}</td>
                     <td>${bug.title}</td>
 			        <td width="200"><span class="${bug.status}" onclick="bugStatusBoxfun(${bug.id})">${bug.status}</span></td>
-                    <td width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
-                    <td width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
+                    <td class="align-center" width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
+                    <td class="align-center" width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
                 `;
                 bugTable.appendChild(row);
                 
@@ -312,11 +319,11 @@ async function updateBug(id) {
             const bugId=`${bug.id}`;
             row.ondblclick=function(){bugDescription(bugId);};
             row.innerHTML=`
-                <td width="60">${bug.id}</td>
+                <td class="align-center" width="60">${bug.id}</td>
                 <td>${bug.title}</td>
 			    <td width="200"><span class="${bug.status}" onclick="bugStatusBoxfun(${bug.id})">${bug.status}</span></td>
-                <td width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
-                <td width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
+                <td class="align-center" width="100"><i class="bi bi-pencil-square" onclick="updateBugBoxfun(${bug.id})"></i></td>
+                <td class="align-center" width="100"><i class="bi bi-trash" onclick="deleteBugBoxfun(${bug.id})"></i></td>
             `;
             bugTable.appendChild(row);
             alert('bug with id '+ bug.id+' updated Successfully!');
@@ -374,23 +381,51 @@ const commentBox=document.getElementById("comment-box-id");
 function addCommentBox(id) {
     if(commentBox.style.display == 'none'){
         commentBox.style.display='block';
-     } else{
-        commentBox.style.display='none';
-     }
+    } else{
+       commentBox.style.display='none';
+    }
+    displayComments(id);
+    document.querySelector("#comment-form i").onclick=function(event){
+       event.preventDefault();
+       addComment(id);
+    };
+    document.getElementById("comment-form").onsubmit=function(event){
+       event.preventDefault();
+       addComment(id);
+    };
+}
 
-     document.querySelector("#comment-box-id i").onclick=function(event){
-        event.preventDefault();
-        addComment(id);
-     };
-     document.getElementById("comment-form").onsubmit=function(event){
-        event.preventDefault();
-        addComment(id);
-     };
+async function displayComments(id) {
+    try {
+        const response=await fetch(`${API_URL}/bugs/${id}/comments` , {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer "+token,
+                "Content-Type": "application/json"
+            }
+        });
+        if(response.ok){
+            const comments= await response.json();
+            const allComments=document.getElementById("comments");
+            allComments.replaceChildren();
+            comments.forEach(comment => {
+                const ele=document.createElement('div');
+                ele.classList.add("comment");
+                ele.innerHTML=`
+                    <i class="bi bi-person"></i><span>${comment.author.username}</span>
+                    <p class="message">${comment.message}</p>
+                `;
+                allComments.appendChild(ele);
+            });
+        }
+    } catch (error) {
+        console.error('Error..'+ error);
+    }
 }
 
 async function addComment(id){
     const data={
-        message:document.getElementById("comment").value
+        message:document.getElementById("message").value
     };
     try{
         const response=await fetch(`${API_URL}/bugs/${id}/comments` , {
@@ -403,7 +438,7 @@ async function addComment(id){
         });
 
         if(response.ok){
-            document.getElementById("comment-form").reset;
+            document.getElementById("comment-form").reset();
             commentBox.style.display='none';
             alert('Comment/feedback added successfully');
         }

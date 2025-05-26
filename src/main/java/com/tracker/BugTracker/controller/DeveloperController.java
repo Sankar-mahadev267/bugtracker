@@ -52,10 +52,17 @@ public class DeveloperController {
 		return ResponseEntity.status(HttpStatus.OK).body(updatedBug);
 	}
 	
+	//comments
 	@PostMapping("/bugs/{bugId}/comments")
 	public ResponseEntity<Comment> addComment(@PathVariable long bugId,@RequestBody Comment comment){
 		Comment addedComment=commentServiceImpl.addComment(bugId,comment);
 		return ResponseEntity.status(HttpStatus.CREATED).body(addedComment);
+	}
+	
+	@GetMapping("/bugs{bugId}/comments")
+	public ResponseEntity<?> getComments(@PathVariable long bugId){
+		List<Comment> comments=bugServiceImpl.getBug(bugId).getComments();
+		return ResponseEntity.status(HttpStatus.OK).body(comments);
 	}
 	
 	//counts 

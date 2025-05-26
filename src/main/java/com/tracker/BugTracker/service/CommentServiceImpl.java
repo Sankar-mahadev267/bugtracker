@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getAllComments() {
 		return commentRepository.findAll();
 	}
-
+	
 	@Override
 	public Comment getComment(long commentId) {
 		return commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("comment not found"));

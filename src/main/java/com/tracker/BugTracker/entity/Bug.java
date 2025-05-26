@@ -1,6 +1,7 @@
 package com.tracker.BugTracker.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -41,12 +43,13 @@ public class Bug {
 	@JoinColumn(name = "project_id")
 	private Project project;
 	
+	@OneToMany(mappedBy = "bug")
+	private List<Comment> comments;
+	
 	private LocalDateTime createdAt = LocalDateTime.now();
 
-	
-	
 	public Bug(long id, String title, String description, BugStatus status, User reportedBy, User assignedTo,
-			Project project, LocalDateTime createdAt) {
+			Project project, List<Comment> comments, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -55,6 +58,7 @@ public class Bug {
 		this.reportedBy = reportedBy;
 		this.assignedTo = assignedTo;
 		this.project = project;
+		this.comments = comments;
 		this.createdAt = createdAt;
 	}
 
@@ -116,6 +120,14 @@ public class Bug {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	public LocalDateTime getCreatedAt() {

@@ -128,8 +128,8 @@ async function getUserProfile() {
 
         if(response.ok){
             const user= await response.json();
-            username.innerHTML=`${user.username}`;
-            joined.innerHTML=`Joined from ${user.createdAt}`;
+            username.innerHTML=`Name : ${user.username}`;
+            joined.innerHTML=`Joined from ${user.createdAt.substr(0,10)}&nbsp;&nbsp;${user.createdAt.substr(11,8)}`;
             role.innerHTML=`Role : ${user.roles[0]}`;
 
         }
@@ -142,7 +142,7 @@ async function getUserProfile() {
 
 document.getElementById("logout").addEventListener("click" , () => {
     localStorage.removeItem("JwtToken");
-    window.href=`http://localhost:8008/bugtracker/login`;
+    window.location.href=`http://localhost:8008/bugtracker/login.html`;
 });
 
 
